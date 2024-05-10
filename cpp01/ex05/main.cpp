@@ -4,6 +4,10 @@ int	main(void)
 {
 	Harl	test;
 
-	test.complain("1");
+	test.complain("uno");
+	test.complain("dos");
+	test.complain("tres");
+	test.complain("quatro");
+	test.complain("five");
 	return (0);
 }

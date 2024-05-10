@@ -10,38 +10,48 @@ Harl::~Harl()
 
 void	Harl::debug(void)
 {
-	std::cout << "debug" << std::endl;
+	std::cout << "DEBUG: Would you kindly hand me the salt, please ?" << std::endl;
 }
 
 void	Harl::info(void)
 {
-	std::cout << "info" << std::endl;
+	std::cout << "INFO: Quickly ! This dish requires a healthy dosage of salt." << std::endl;
 }
 
 void	Harl::warning(void)
 {
-	std::cout << "warning" << std::endl;
+	std::cout << "WARNING: This is pepper you imbecile ! I. need. the. " << RED "SALT !" RESET << std::endl;
 }
 
 void	Harl::error(void)
 {
-	std::cout << "error" << std::endl;
+	std::cout << "ERROR: *violently throws bowl of soup in the air and flips table while standing up, puts hands on chest and tightly grabs shirt*\n" << RED "FUCK !\n" RESET "*rips shirt*" << std::endl;
 }
 
 void	Harl::complain(std::string level)
 {
-	(void)level;
+	std::string	tabLVL[4] =
+	{
+		"uno",
+		"dos",
+		"tres",
+		"quatro"
+	};
+	void	(Harl::*tabPTR[])(void) =
+	{
+		&Harl::debug,
+		&Harl::info,
+		&Harl::warning,
+		&Harl::error
+	};
 
-	void	(Harl::*deb)() = &Harl::debug;
-
-	void	(Harl::*inf)() = &Harl::info;
-
-	void	(Harl::*war)() = &Harl::warning;
-
-	void	(Harl::*err)() = &Harl::error;
-
-	std::cout << "level = " << getFunc(deb) << std::endl;
-	std::cout << "level = " << inf << std::endl;
-	std::cout << "level = " << war << std::endl;
-	std::cout << "level = " << err << std::endl;
+	for (int i = 0; i < 4; i++)
+	{
+		if (tabLVL[i] == level)
+		{
+			(this->*tabPTR[i])();
+			return ;
+		}
+	}
+	std::cout << "eats soup" << std::endl;
 }
