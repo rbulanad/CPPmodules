@@ -6,7 +6,7 @@
 /*   By: rbulanad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 19:09:40 by rbulanad          #+#    #+#             */
-/*   Updated: 2024/05/06 12:25:51 by rbulanad         ###   ########.fr       */
+/*   Updated: 2024/05/13 18:52:49 by rbulanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,39 @@ int	main (void)
 		{
 			std::cout << "First Name: ";
 			std::getline(std::cin, first, '\n');
+			if (first.size() == 0)
+			{
+				std::cout << "ERR:NeEd a FirST NaMEe" << std::endl;
+				continue ;
+			}
 			std::cout << "Last Name: ";
 			std::getline(std::cin, last, '\n');
+			if (last.size() == 0)
+			{
+				std::cout << "ERR:NeEd a LaST NaMEe" << std::endl;
+				continue ;
+			}
 			std::cout << "Nickname: ";
 			std::getline(std::cin, nick, '\n');
+			if (nick.size() == 0)
+			{
+				std::cout << "ERR:NeEd a NicK NaMEe" << std::endl;
+				continue ;
+			}
 			std::cout << "Phone Number: ";
 			std::getline(std::cin, phone, '\n');
+			if (phone.size() == 0)
+			{
+				std::cout << "ERR:NeEd a PhOne NuMbeR" << std::endl;
+				continue ;
+			}
 			std::cout << "Darkest Secret: ";
 			std::getline(std::cin, secret, '\n');
+			if (secret.size() == 0)
+			{
+				std::cout << "ERR:NeEd The DaRkEsT SeCREt" << std::endl;
+				continue ;
+			}
 			temp.setFirst(first);
 			temp.setLast(last);
 			temp.setNick(nick);
@@ -88,7 +113,9 @@ int	main (void)
 				first = repertory.getTab(y - 1).getFirst();
 				if (first.size() > 10) first.erase(10, -1), first[9] = '.';
 				last = repertory.getTab(y - 1).getLast();
+				if (last.size() > 10) last.erase(10, -1), last[9] = '.';
 				nick = repertory.getTab(y - 1).getNick();
+				if (nick.size() > 10) nick.erase(10, -1), nick[9] = '.';
 				std::cout << std::setfill (' ') << std::setw(10) << y;
 				std::cout << '|';
 				std::cout << std::setfill (' ') << std::setw(10) << (first) ? first : NULL;

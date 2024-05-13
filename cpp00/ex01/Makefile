@@ -6,7 +6,7 @@
 #    By: rbulanad <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 13:32:16 by rbulanad          #+#    #+#              #
-#    Updated: 2024/04/30 13:07:53 by rbulanad         ###   ########.fr        #
+#    Updated: 2024/05/13 18:57:51 by rbulanad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS	=		main.cpp \
 
 OBJS	=		${SRCS:.cpp=.o}
 CC		=		c++
-FLAGS	=		-Wall -Werror -Wextra -std=c++98 -g
+FLAGS	=		-Wall -Werror -Wextra -std=c++98 -g 
 RM		=		rm -f
 
 .cpp.o:
