@@ -2,7 +2,10 @@
 
 int main(void)
 {
-	Zombie *firstZomb = zombieHorde(6, "Bobert");
+	int	N = 5;
+	Zombie *firstZomb = zombieHorde(N, "Bobert");
+	for (int y = 0; y < N; y++)
+		firstZomb[y].announce();
 	delete[] firstZomb;
 	return (0);
 }

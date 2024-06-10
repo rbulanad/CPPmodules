@@ -10,32 +10,32 @@ Harl::~Harl()
 
 void	Harl::debug(void)
 {
-	std::cout << "DEBUG: Would you kindly hand me the salt, please ?" << std::endl;
+	std::cout << "DEBUG: I love having extra bacon for my 7XL-double-cheese-triple-pickle-specialketchup burger. I really do!" << std::endl;
 }
 
 void	Harl::info(void)
 {
-	std::cout << "INFO: Quickly ! This dish requires a healthy dosage of salt." << std::endl;
+	std::cout << "INFO: I cannot believe adding extra bacon costs more money. You didn’t put enough bacon in my burger! If you did, I wouldn’t be asking for more!" << std::endl;
 }
 
 void	Harl::warning(void)
 {
-	std::cout << "WARNING: This is pepper you imbecile ! I. need. the. " << RED "SALT !" RESET << std::endl;
+	std::cout << "WARNING: I think I deserve to have some extra bacon for free. I’ve been coming for years whereas you started working here since last month." << std::endl;
 }
 
 void	Harl::error(void)
 {
-	std::cout << "ERROR: *violently throws bowl of soup in the air and flips table while standing up, puts hands on chest and tightly grabs shirt*\n" << RED "FUCK !\n" RESET "*rips shirt*" << std::endl;
+	std::cout << "ERROR: " << RED "*rips shirt*" << RESET " This is unacceptable! I want to speak to the manager now." << std::endl;
 }
 
 void	Harl::complain(std::string level)
 {
 	std::string	tabLVL[4] =
 	{
-		"uno",
-		"dos",
-		"tres",
-		"quatro"
+		"debug",
+		"info",
+		"warning",
+		"error"
 	};
 	void	(Harl::*tabPTR[])(void) =
 	{
@@ -53,5 +53,5 @@ void	Harl::complain(std::string level)
 			return ;
 		}
 	}
-	std::cout << "eats soup" << std::endl;
+	std::cout << "*eats soup*" << std::endl;
 }

@@ -6,6 +6,6 @@ int main(void)
 
 	randomChump("Bobert");
 	test->announce();
-	delete(test2);
+	delete(test);
 	return 0;
 }
