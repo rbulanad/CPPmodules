@@ -5,9 +5,7 @@ int	main(int argc, char** argv)
 {
 	if (argc == 2)
 	{
-		ScalarConverter	test;
-
-		test.convert(argv[1]);
+		ScalarConverter::convert(argv[1]);
 	}
 	else if (argc > 2)
 		std::cout << "Too many arguments" << std::endl;

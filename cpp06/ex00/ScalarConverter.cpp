@@ -3,10 +3,6 @@
 ScalarConverter::ScalarConverter()
 {
 	std::cout << GREEN "Scalar Construct" RESET << std::endl;
-	_isInt = false;
-	_isFloat = false;
-	_isDouble = false;
-	_isChar = false;
 }
 
 ScalarConverter::~ScalarConverter()
@@ -33,6 +29,13 @@ int	ScalarConverter::ft_stoi(std::string & literal)
     return (i);
 }
 
+long	ScalarConverter::ft_stol(std::string & literal)
+{
+	long l;
+    std::istringstream(literal) >> l;
+    return (l);
+}
+
 float	ScalarConverter::ft_stof(std::string & literal)
 {
 	float f;
@@ -48,10 +51,6 @@ double	ScalarConverter::ft_stod(std::string & literal)
 }
 void	ScalarConverter::convert(std::string literal)
 {
-	isInt(literal);
-	isFloat(literal);
-	isDouble(literal);
-	isChar(literal);
 	printer(literal);
 }
 
@@ -66,12 +65,16 @@ void	ScalarConverter::printer(std::string literal)
 	double dmin = std::numeric_limits<double>::min();
 	double dmax = std::numeric_limits<double>::max();
 	
-	if (_isInt) //INT
+	int		INT = ft_stoi(literal);
+	long 	LONG =  ft_stol(literal);
+	float	FLOAT = ft_stof(literal);
+	double	DOUBLE = ft_stod(literal);
+
+	std::cout << "fmin =" << fmin << "\nfmax= "<< fmax << std::endl;
+	std::cout << "dmin =" << dmin << "\ndmax= "<< dmax << std::endl;
+
+	if (isInt(literal)) //INT
 	{
-		int		INT = ft_stoi(literal);
-		long 	LONG =  std::atol(literal.c_str());
-		std::cout << "fmin =" << fmin << "\nfmax= "<< fmax << std::endl;
-		std::cout << "dmin =" << dmin << "\ndmax= "<< dmax << std::endl;
 		if (INT < 0 || INT > 255)									//////////
 			std::cout << "char: impossible" << std::endl;					//
 		else if(isprint(INT))												//
@@ -81,79 +84,84 @@ void	ScalarConverter::printer(std::string literal)
 		if (LONG < imin || LONG > imax)					//////////
 			std::cout << "int: impossible" << std::endl;		//
 		else													// INT
-			std::cout << "int: " << INT << std::endl;	/////////
-		if (LONG <= fmin || LONG >= fmax)
-			std::cout << "float: impossible" << std::endl;
-		else
-			std::cout << "float: " << static_cast<float >(LONG) << ".0f" << std::endl;
-		//std::cout << "double: " << static_cast<double>(INT) << ".0" << std::endl;	
+			std::cout << "int: " << INT << std::endl;	//////////
+		if (LONG <= fmin || LONG >= fmax)											//////////
+			std::cout << "float: impossible" << std::endl;									//
+		else																				//FLOAT
+			std::cout << "float: " << static_cast<float >(LONG) << ".0f" << std::endl;////////
+		std::cout << "double: " << static_cast<double>(INT) << ".0" << std::endl;	
 	}
-	if (_isFloat) //FLOAT
+	if (isFloat(literal)) //FLOAT
 	{
-		float	FLOAT = ft_stof(literal);
-		if (isprint(FLOAT))
-			std::cout << "char: " << static_cast<char>(FLOAT) << std::endl;
-		else
-			std::cout << "char: Non displayable" << std::endl;
-		std::cout << "int: " << static_cast<int>(FLOAT) << std::endl;
-		std::cout << "float: " << FLOAT << "f" << std::endl;
-		std::cout << "double: " << static_cast<double>(FLOAT) << std::endl;
+		if (INT < 0 || INT > 255)									//////////
+			std::cout << "char: impossible" << std::endl;					//
+		else if(isprint(INT))												//
+			std::cout << "char: " << static_cast<char>(FLOAT) << std::endl;	// CHAR
+		else																//
+			std::cout << "char: Non displayable" << std::endl;		//////////
+		if (LONG < imin || LONG > imax)									//////////
+			std::cout << "int: impossible" << std::endl;						//
+		else																	// INT
+			std::cout << "int: " << static_cast<int>(FLOAT) << std::endl;	//////
+		if (LONG <= fmin || LONG >= fmax)								//////////
+			std::cout << "float: impossible" << std::endl;						//
+		else																	//FLOAT
+			std::cout << "float: " << FLOAT << "f" << std::endl;		//////////
+		std::cout << "double: " << std::setprecision(9) << static_cast<double>(FLOAT) << std::endl;
 	}
-	if (_isDouble) //DOUBLE
+	if (isDouble(literal)) //DOUBLE
 	{
-		double	DOUBLE = ft_stod(literal);
-		if (isprint(DOUBLE))
-			std::cout << "char: " << static_cast<char>(DOUBLE) << std::endl;
+		if (INT < 0 || INT > 255)										//////////
+			std::cout << "char: impossible" << std::endl;						//
+		else if(isprint(INT))													//
+			std::cout << "char: " << static_cast<char>(DOUBLE) << std::endl;	// CHAR
+		else																	//
+			std::cout << "char: Non displayable" << std::endl;			//////////
+		if (LONG < imin || LONG > imax)										//////////
+			std::cout << "int: impossible" << std::endl;							//
+		else																		// INT
+			std::cout << "int: " << static_cast<int>(DOUBLE) << std::endl;	//////////
+		if (LONG <= fmin || LONG >= fmax)											//////////
+			std::cout << "float: impossible" << std::endl;									//
+		else																				//FLOAT
+			std::cout << "float: " << static_cast<float>(DOUBLE) << "f" << std::endl;	//////
+		if (DOUBLE < dmin || DOUBLE > dmax)
+			std::cout << "double: impossible" << std::endl;
 		else
-			std::cout << "char: Non displayable" << std::endl;
-		std::cout << "int: " << static_cast<int>(DOUBLE) << std::endl;
-		std::cout << "float: " << static_cast<float>(DOUBLE) << "f" << std::endl;
-		std::cout << "double: " << std::setprecision(8) << DOUBLE << std::endl;
+			std::cout << "double: "<< std::setprecision(9) << DOUBLE << std::endl;
 	}
 }
 
-void		ScalarConverter::isInt(std::string literal)
+bool		ScalarConverter::isInt(std::string literal)
 {
 	int i = 0;
 	if (literal.length() == 0)
-		return ;
+		return (false);
 	if (literal[0] == '-' || literal[0] == '+')
 	{
 		i++;
 		if (!literal[i])
-		{
-			_isInt = false;
-			return ;
-		}
+			return (false);
 	}
 	for (; literal[i]; i++)
 	{
 		if (!(isdigit(literal[i])))
-		{
-			_isInt = false;
-			return ;
-		}
+			return (false);
 	}
-	_isInt = true;
+	return (true);
 }
 
-void		ScalarConverter::isFloat(std::string literal)
+bool		ScalarConverter::isFloat(std::string literal)
 {
 	int i = 0;
 	int	y = literal.length() - 1;
 	if (literal[y] != 'f' || !isdigit(literal[y - 1]))
-	{
-		_isFloat = false;
-		return ;
-	}
+		return (false);
 	if (literal[0] == '-' || literal[0] == '+')
 	{
 		i++;
 		if (literal[i] == 'f')
-		{
-			_isFloat = false;
-			return ;
-		}
+			return (false);
 	}
 	int	dot = 0;
 	for (; literal[i] != 'f'; i++)
@@ -163,24 +171,18 @@ void		ScalarConverter::isFloat(std::string literal)
 			if (literal[i] == '.' && dot == 0)
 				dot++;
 			else
-			{
-				_isFloat = false;
-				return ;
-			}
+				return (false);
 		}
 	}
-	_isFloat = (dot == 1);
+	return (dot == 1);
 }
 
-void		ScalarConverter::isDouble(std::string literal)
+bool		ScalarConverter::isDouble(std::string literal)
 {
 	int i = 0;
 	int	y = literal.length() - 1;
 	if (literal[y] == '.')
-	{
-		_isDouble = false;
-		return ;
-	}
+		return (false);
 	if (literal[0] == '-' || literal[0] == '+')
 		i++;	
 	int	dot = 0;
@@ -191,19 +193,17 @@ void		ScalarConverter::isDouble(std::string literal)
 			if (literal[i] == '.' && dot == 0)
 				dot++;
 			else
-			{
-				_isDouble = false;
-				return ;
-			}
+				return (false);
 		}
 	}
-	_isDouble = (dot == 1);
+	return (dot == 1);
 }
 
-void	ScalarConverter::isChar(std::string literal)
+bool	ScalarConverter::isChar(std::string literal)
 {
-	if (_isInt || literal.length() > 1)
-		return ;
+	if (isInt(literal) || literal.length() > 1)
+		return (false);
 	if	(isprint(literal[0]))
-		_isChar = true;
+		return (true);
+	return (false);
 }

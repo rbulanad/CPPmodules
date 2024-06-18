@@ -16,10 +16,7 @@
 class	ScalarConverter
 {
 	private:
-	bool	_isInt;
-	bool	_isFloat;
-	bool	_isDouble;
-	bool	_isChar;
+
 	public:
 	ScalarConverter();
 	~ScalarConverter();
@@ -27,15 +24,16 @@ class	ScalarConverter
 	ScalarConverter &operator=(const ScalarConverter &dup);
 
 	//funcs
-	void		convert(std::string literal);
-	void		printer(std::string literal);
-	void		isInt(std::string literal);
-	void		isFloat(std::string literal);
-	void		isDouble(std::string literal);
-	void		isChar(std::string literal);
-	int			ft_stoi(std::string & literal);
-	float		ft_stof(std::string & literal);
-	double		ft_stod(std::string & literal);
+	static void		convert(std::string literal);
+	static void		printer(std::string literal);
+	static bool		isInt(std::string literal);
+	static bool		isFloat(std::string literal);
+	static bool		isDouble(std::string literal);
+	static bool		isChar(std::string literal);
+	static int		ft_stoi(std::string & literal);
+	static long		ft_stol(std::string & literal);
+	static float	ft_stof(std::string & literal);
+	static double	ft_stod(std::string & literal);
 
 	//exceptions
 	class	Syntax : public std::exception
