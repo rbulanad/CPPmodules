@@ -26,6 +26,8 @@ class	ScalarConverter
 	//funcs
 	static void		convert(std::string literal);
 	static void		printer(std::string literal);
+	static void		checkZero(std::string literal, int x);
+	static bool		isPseudo(std::string literal);
 	static bool		isInt(std::string literal);
 	static bool		isFloat(std::string literal);
 	static bool		isDouble(std::string literal);
