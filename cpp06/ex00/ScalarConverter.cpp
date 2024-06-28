@@ -94,6 +94,18 @@ void	ScalarConverter::printer(std::string literal)
 			}
 		}
 	}
+	else if (isChar(literal))
+	{
+		if (literal[0] < 0 || literal[0] > 127)
+			std::cout << "char: impossible" << std::endl;
+		else if(isprint(literal[0]))
+			std::cout << "char: " << literal << std::endl;
+		else
+			std::cout << "char: Non displayable" << std::endl;
+		std::cout << "int: " << static_cast<int>(literal[0]) << std::endl;
+		std::cout << "float: " << static_cast<float>(literal[0]) << ".0f" << std::endl;
+		std::cout << "double: " << static_cast<double>(literal[0]) << ".0" << std::endl;
+	}
 	else if (isInt(literal)) //INT
 	{
 		if (INT < 0 || INT > 255)
@@ -128,13 +140,21 @@ void	ScalarConverter::printer(std::string literal)
 		else
 			std::cout << "int: " << static_cast<int>(FLOAT) << std::endl;
 		if (FLOAT <= fmin || FLOAT >= fmax)
+		{
 			std::cout << "float: impossible" << std::endl;
-		else
-			checkZero(literal, 0);
-		if (DOUBLE <= dmin || DOUBLE >= dmax)
 			std::cout << "double: impossible" << std::endl;
+		}
 		else
-			checkZero(literal, 1);
+		{
+			if (FLOAT == static_cast<int>(FLOAT))
+				std::cout << "float: " << FLOAT << ".0f" << std::endl;
+			else
+				std::cout << "float: " << FLOAT << 'f' << std::endl;
+			if (FLOAT == static_cast<int>(FLOAT))
+				std::cout << "double: " << static_cast<double>(FLOAT) << ".0" << std::endl;
+			else
+				std::cout << "double: " << static_cast<double>(FLOAT) << std::endl;
+		}
 	}
 	else if (isDouble(literal)) //DOUBLE
 	{
@@ -151,39 +171,24 @@ void	ScalarConverter::printer(std::string literal)
 		if (FLOAT <= fmin || FLOAT >= fmax)
 			std::cout << "float: impossible" << std::endl;
 		else
-			checkZero(literal, 0);
+		{
+			if (DOUBLE == static_cast<int>(DOUBLE))
+				std::cout << "float: " << static_cast<float>(DOUBLE) << ".0f" << std::endl;
+			else
+				std::cout << "float: " << static_cast<float>(DOUBLE) << 'f' << std::endl;
+		}
 		if (DOUBLE <= dmin || DOUBLE >= dmax)
 			std::cout << "double: impossible" << std::endl;
 		else
-			checkZero(literal, 1);
+		{
+			if (DOUBLE == static_cast<int>(DOUBLE))
+				std::cout << "double: " << DOUBLE << ".0" << std::endl;
+			else
+				std::cout << "double: " << DOUBLE << std::endl;
+		}
 	}
 	else
 		std::cout << RED "Wrong argument" RESET << std::endl;
-}
-
-void	ScalarConverter::checkZero(std::string literal, int x)
-{
-	float	Float = ft_stof(literal);
-	double	Double = ft_stod(literal);
-	int		i = literal.find('.') + 1;
-	if (x)
-	{
-		while (literal[i] == '0')
-			i++;
-		if (literal[i] == '\0' || literal[i] == 'f')
-			std::cout << "double: " << Double << ".0" << std::endl;
-		else
-			std::cout << "double: " << Double << std::endl;
-	}
-	else
-	{
-		while (literal[i] == '0')
-			i++;
-		if (literal[i] == '\0' || literal[i] == 'f')
-			std::cout << "float: " << Float << ".0f" << std::endl;
-		else
-			std::cout << "float: " << Float << 'f' << std::endl;
-	}
 }
 
 bool		ScalarConverter::isPseudo(std::string literal)
