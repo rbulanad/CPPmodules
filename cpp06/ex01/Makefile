@@ -6,14 +6,14 @@
 #    By: rbulanad <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 13:32:16 by rbulanad          #+#    #+#              #
-#    Updated: 2024/06/12 17:36:36 by rbulanad         ###   ########.fr        #
+#    Updated: 2024/06/28 14:25:01 by rbulanad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=		exec
 
 SRCS	=		main.cpp \
-				ScalarConverter.cpp
+				Serializer.cpp
 
 OBJS	=		${SRCS:.cpp=.o}
 CC		=		c++

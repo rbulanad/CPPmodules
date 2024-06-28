@@ -1,6 +1,9 @@
 #ifndef SERIALIZER_HPP
 #define SERIALIZER_HPP
 
+# include <stdint.h>
+# include "Data.h"
+
 class	Serializer
 {
 	private:
@@ -10,8 +13,8 @@ class	Serializer
 	Serializer(const Serializer &dup);
 	Serializer &operator=(const Serializer &dup);
 
-	uintptr_t	serialize(Data* ptr);
-	//Data*		deserialize(uintptr_t raw);
+	static uintptr_t	serialize(Data* ptr);
+	static Data*		deserialize(uintptr_t raw);
 };
 
 #endif
