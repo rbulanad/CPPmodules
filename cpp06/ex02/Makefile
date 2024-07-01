@@ -13,7 +13,7 @@
 NAME	=		exec
 
 SRCS	=		main.cpp \
-				Serializer.cpp
+				Base.cpp
 
 OBJS	=		${SRCS:.cpp=.o}
 CC		=		c++
