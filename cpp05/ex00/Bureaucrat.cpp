@@ -20,7 +20,9 @@ Bureaucrat::Bureaucrat(const Bureaucrat &dup)
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &dup)
 {
-	if (this != &dup) {}
+	if (this != &dup) {
+		this->_grade = dup._grade;
+		}
 	return *this;
 }
 

@@ -1,5 +1,10 @@
 #include "AForm.hpp"
 
+AForm::AForm() : _name("ohoh"), _gradeSign(150), _gradeExec(150)
+{
+	std::cout << "AForm default construct" << std::endl;
+}
+
 AForm::AForm(std::string name, int sign, int exec) : _name(name), _gradeSign(sign), _gradeExec(exec)
 {
 	std::cout << GREEN "AForm Construct" RESET << std::endl;
@@ -30,7 +35,7 @@ AForm &AForm::operator=(const AForm &dup)
 	return (*this);
 }
 
-const std::string AForm::getName()
+const std::string AForm::getName() const
 {
 	return _name;
 }
@@ -45,17 +50,31 @@ int AForm::getGradeExec()
 	return _gradeExec;
 }
 
-bool AForm::isSigned()
+bool AForm::isSigned() const
 {
 	return _signed;
 }
 
-void AForm::beSigned(Bureaucrat &check) const
+void AForm::beSigned(Bureaucrat &check)
 {
 	if (check.getGrade() <= _gradeSign)
 		_signed = true;
 	else
 		throw (AForm::GradeTooLowException());
+}
+
+void AForm::execute(Bureaucrat const &executor) const
+{
+	if (!this->isSigned())
+		throw (AForm::NotSignedException());
+	if (executor.getGrade() > this->_gradeExec)
+		throw (AForm::GradeTooLowException());
+	doStuff();
+}
+
+void		AForm::setTarget(std::string target)
+{
+	(void)target;
 }
 
 std::ostream &operator<<(std::ostream &out, AForm &c)

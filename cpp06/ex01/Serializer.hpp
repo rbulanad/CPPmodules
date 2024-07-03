@@ -7,8 +7,8 @@
 class	Serializer
 {
 	private:
-	public:
 	Serializer();
+	public:
 	~Serializer();
 	Serializer(const Serializer &dup);
 	Serializer &operator=(const Serializer &dup);

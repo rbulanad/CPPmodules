@@ -21,17 +21,25 @@ class	AForm
 	const int			_gradeExec;
 
 	public:
+	//construc & destruct
+	AForm();
 	AForm(std::string name, int sign, int exec);
-	~AForm();
+	virtual ~AForm();
 	AForm(const AForm &dup);
 	AForm &operator=(const AForm &dup);
 
-	const std::string 	getName();
+	//functions
+	const std::string 	getName() const;
 	int					getGradeSign();
 	int					getGradeExec();
 	bool				isSigned() const;
-	virtual void		beSigned(Bureaucrat &check) const = 0 ;
+	void				beSigned(Bureaucrat &check);
+	void				execute(Bureaucrat const &executor) const;
+	virtual void		doStuff() const = 0;
+	virtual AForm*		clown() = 0;
+	virtual	void		setTarget(std::string target);
 
+	//exceptions
 	class	GradeTooHighException : public std::exception
 	{
 		const char* what() const throw()
@@ -47,8 +55,16 @@ class	AForm
 			return (RED "Required Grade is too low" RESET);
 		}
 	};
-};
 
+	class	NotSignedException : public std::exception
+	{
+		const char* what() const throw()
+		{
+			return (RED "The form is not signed" RESET);
+		}
+	};
+};
+	//overloads
 std::ostream &operator<<(std::ostream &out, AForm &c);
 
 #endif
