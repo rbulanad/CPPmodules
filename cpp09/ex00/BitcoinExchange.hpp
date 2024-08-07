@@ -9,19 +9,33 @@
 # define MAG	"\e[1;35m"
 
 # include <iostream>
-# include <list>
+# include <map>
 # include <fstream>
+# include <sstream>
 # include <algorithm>
 
 class	BitcoinExchange
 {
 	private:
+	std::string	_first;
+	float		_second;
 	public:
 	BitcoinExchange();
 	~BitcoinExchange();
 	BitcoinExchange(const BitcoinExchange &dup);
 	BitcoinExchange &operator=(const BitcoinExchange &dup);
 
+	//functions
+
+	void		setFirst(std::string s);
+	void		setSecond(float f);
+	std::string getFirst();
+	float 		getSecond();
+	void		FillData(std::map <std::string, float> &datab);
+	void		InputParse(std::string filename);
+	void		SubParse(std::string line);
+
+	//exceptions
 	class	OpenError: public std::exception
 	{
 		public:
@@ -35,12 +49,12 @@ class	BitcoinExchange
 		public:
 			const char*	what() const throw()
 			{
-				return (RED "Error while opening file." RESET);
+				return (RED "Invalid line format." RESET);
 			}
 	};
 };
 
-void	Parse(std::string filename);
-void	FillData(std::list<std::string> &datab);
+int		ft_stoi(std::string & s);
+float	ft_stof(std::string & s);
 
 #endif
