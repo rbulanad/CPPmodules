@@ -120,19 +120,62 @@ void	BitcoinExchange::FillData(std::map<std::string, float> &datab)
 {
 	std::ifstream file;
 	std::string line;
-
 (void)datab;
 	file.open("data.csv");
 	if (file.is_open())
 	{
 		while (std::getline(file, line))
 		{
+			std::cout << line << std::endl;
 			DataParse(line); //PARSE DATA.CSV
+			datab[BitcoinExchange::getFirst()] = BitcoinExchange::getSecond();
 		}
+		std::cout << BitcoinExchange::getFirst() << std::endl;
+		std::cout << BitcoinExchange::getSecond() << std::endl;
 		file.close();
 	}
 	else
 		throw (BitcoinExchange::OpenError());
+}
+
+void	BitcoinExchange::DataParse(std::string line)
+{
+	size_t comma = line.find(','); 
+	if (comma == std::string::npos) //check for comma presence
+	{
+		std::cout << RED "Error: Invalid line format" RESET << std::endl;
+		return ;
+	}
+	if (line.size() < 11) //check for minimal line length
+	{
+		std::cout << RED "Error: Invalid line format" RESET << std::endl;
+		return ;
+	}
+	std::string sousstr = line.substr(comma + 1, line.size()); //isolate exrate for more parsing boiiiiiiii
+	int i = 0;
+	if (sousstr[0] == '-') //check for negatives
+	{
+		std::cout << RED "Error: Positive exchange rate only" RESET << std::endl;
+		return ;
+	}
+	if (sousstr[0] == '+') //skip '+' if present
+		i++;
+	int	dot = 0;
+	for (; sousstr[i]; i++) //check exrate is made of only digits and '.' 
+	{
+		if (!(isdigit(sousstr[i])))
+		{
+			if (sousstr[i] == '.' && dot == 0) //check for dot and dot amount
+				dot++;
+			else
+			{
+				std::cout << RED "Error: Invalid exchange rate format" RESET << std::endl;
+				return ;
+			}
+		}
+	}
+	BitcoinExchange::setFirst(line.substr(0, comma));
+	BitcoinExchange::setSecond(ft_stof(sousstr));
 }
 
 int ft_stoi(std::string & s)

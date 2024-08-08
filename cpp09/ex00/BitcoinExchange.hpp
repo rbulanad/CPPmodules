@@ -34,6 +34,7 @@ class	BitcoinExchange
 	void		FillData(std::map <std::string, float> &datab);
 	void		InputParse(std::string filename);
 	void		SubParse(std::string line);
+	void		DataParse(std::string line);
 
 	//exceptions
 	class	OpenError: public std::exception
