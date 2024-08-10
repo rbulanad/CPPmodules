@@ -32,8 +32,8 @@ class	BitcoinExchange
 	std::string getFirst();
 	float 		getSecond();
 	void		FillData(std::map <std::string, float> &datab);
-	void		InputParse(std::string filename);
-	void		SubParse(std::string line);
+	void		InputParse(std::string filename, std::map <std::string, float> &datab);
+	void		SubParse(std::string line, std::map <std::string, float> &datab);
 	void		DataParse(std::string line);
 
 	//exceptions

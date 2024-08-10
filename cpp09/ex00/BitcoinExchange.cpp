@@ -43,7 +43,7 @@ float BitcoinExchange::getSecond()
 	return _second;
 }
 
-void	BitcoinExchange::InputParse(std::string file)
+void	BitcoinExchange::InputParse(std::string file, std::map <std::string, float> &datab)
 {
 	std::ifstream input;
 	std::string line;
@@ -55,7 +55,7 @@ void	BitcoinExchange::InputParse(std::string file)
 		while (std::getline(input, line))
 		{
 			//std::cout << line << std::endl;
-			SubParse(line);
+			SubParse(line, datab);
 		}
 		input.close();
 	}
@@ -63,7 +63,7 @@ void	BitcoinExchange::InputParse(std::string file)
 		throw (BitcoinExchange::OpenError());
 }
 
-void	BitcoinExchange::SubParse(std::string line) //Need to mark lines as unprocessable if error is found
+void	BitcoinExchange::SubParse(std::string line, std::map <std::string, float> &datab)
 {
 	size_t pipe = line.find('|'); 
 	if (pipe == std::string::npos) //check for pipe presence
@@ -114,6 +114,15 @@ void	BitcoinExchange::SubParse(std::string line) //Need to mark lines as unproce
 		std::cout << RED "Error: value between 0 and 1000 only" RESET << std::endl;
 		return ;
 	}
+	//////////////////COMPARE/////////////////////
+	std::string	date = line.substr(0, pipe - 1);
+	//float		value = ft_stof(sousstr);
+
+	std::map<std::string, float>::iterator search = datab.find(date);
+
+	if (search == datab.end())
+		std::cout << "not found" << std::endl;
+	//std::cout << date << " => " << value << " = " << value * BitcoinExchange::_second << std::endl;
 }
 
 void	BitcoinExchange::FillData(std::map<std::string, float> &datab)
@@ -126,12 +135,9 @@ void	BitcoinExchange::FillData(std::map<std::string, float> &datab)
 	{
 		while (std::getline(file, line))
 		{
-			std::cout << line << std::endl;
 			DataParse(line); //PARSE DATA.CSV
 			datab[BitcoinExchange::getFirst()] = BitcoinExchange::getSecond();
 		}
-		std::cout << BitcoinExchange::getFirst() << std::endl;
-		std::cout << BitcoinExchange::getSecond() << std::endl;
 		file.close();
 	}
 	else
