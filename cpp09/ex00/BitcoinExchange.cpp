@@ -116,6 +116,11 @@ void	BitcoinExchange::SubParse(std::string line, std::map <std::string, float> &
 	float		value = ft_stof(sousstr);
 
 	std::map<std::string, float>::iterator it = datab.begin();
+	if (date < it->first)
+	{
+		std::cout << RED "Error: Could not find date." RESET << std::endl;
+		return ;
+	}
 	if (datab.find(date) == datab.end())
 	{
 		while (it++ != datab.end())
@@ -127,7 +132,7 @@ void	BitcoinExchange::SubParse(std::string line, std::map <std::string, float> &
 				return ;
 			}
 		}
-		std::cout << "Could not find date" << std::endl;
+		std::cout << RED "Could not find date." RESET << std::endl;
 	}
 	std::cout << date << " => " << value << " = " << (value * datab[date]) << std::endl;
 	///////////////////////////////////////////////////////
