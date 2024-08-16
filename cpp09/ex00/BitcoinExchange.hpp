@@ -45,12 +45,12 @@ class	BitcoinExchange
 				return (RED "Error while opening file." RESET);
 			}
 	};
-	class	InvalidFormat: public std::exception
+	class	EmptyFile: public std::exception
 	{
 		public:
 			const char*	what() const throw()
 			{
-				return (RED "Invalid line format." RESET);
+				return (RED "File is empty." RESET);
 			}
 	};
 };

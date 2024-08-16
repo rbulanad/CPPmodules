@@ -51,7 +51,8 @@ void	BitcoinExchange::InputParse(std::string file, std::map <std::string, float>
 	input.open(file.c_str());
 	if (input.is_open())
 	{
-		std::getline(input, line); //skip first line
+		if (std::getline(input, line) == '\0') //skip first line
+			throw (BitcoinExchange::EmptyFile());
 		while (std::getline(input, line))
 			SubParse(line, datab);
 		input.close();
