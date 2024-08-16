@@ -66,8 +66,11 @@ void	Calcul(std::string line)
 			Div(stak, line[i]);
 		}
 	}
-	std::cout << stak.top() << std::endl;
+	int	ret = stak.top();
 	stak.pop();
+	if (!stak.empty())
+		throw (RPN::SyntaxError());
+	std::cout << ret << std::endl;
 }
 
 void	Add(std::stack<int> &stak, char c)
