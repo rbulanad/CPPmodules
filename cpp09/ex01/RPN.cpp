@@ -28,10 +28,13 @@ int		IsOperand(char c)
 
 void	Parse(std::string line)
 {
-	if (line[0] < 48 || line[0] > 57) //1st char needs to be digit
+	int	i = 0;
+	while (line[i] == ' ')
+		i++;
+	if (line[i] < 48 || line[i] > 57) //1st char needs to be digit
 		throw (RPN::SyntaxError());
 	int	digit = 0;
-	for(int i = 0; line[i] != '\0'; i++)
+	for(; line[i] != '\0'; i++)
 	{
 		if (line[i] < 48 || line [i] > 57)
 		{
@@ -53,6 +56,7 @@ void	Parse(std::string line)
 
 void	Calcul(std::string line)
 {
+	int	isUnary = 0;
 	std::stack<int> stak;
 	for(int i = 0; line[i] != '\0'; i++)
 	{
@@ -61,14 +65,14 @@ void	Calcul(std::string line)
 		else if (IsOperand(line[i]))
 		{
 			Add(stak, line[i]);
-			Sub(stak, line[i]);
+			Sub(stak, line[i], isUnary);
 			Mul(stak, line[i]);
 			Div(stak, line[i]);
 		}
 	}
 	int	ret = stak.top();
 	stak.pop();
-	if (!stak.empty())
+	if (!stak.empty()) //check for leftover nums
 		throw (RPN::SyntaxError());
 	std::cout << ret << std::endl;
 }
@@ -79,18 +83,28 @@ void	Add(std::stack<int> &stak, char c)
 		return ;
 	int	right = stak.top();
 	stak.pop();
+	if (stak.empty()) 
+		throw (RPN::SyntaxError());
 	int	left = stak.top();
 	stak.pop();
 
 	stak.push(left + right);
 }
 
-void	Sub(std::stack<int> &stak, char c)
+void	Sub(std::stack<int> &stak, char c, int &isUnary)
 {
 	if (c != '-')
 		return ;
+	isUnary++;
 	int	right = stak.top();
 	stak.pop();
+	if (stak.empty() && isUnary == 1)
+	{
+		stak.push(right * -1);
+		return ;
+	}
+	else if (stak.empty()) 
+		throw (RPN::SyntaxError());
 	int	left = stak.top();
 	stak.pop();
 
@@ -103,6 +117,8 @@ void	Mul(std::stack<int> &stak, char c)
 		return ;
 	int	right = stak.top();
 	stak.pop();
+	if (stak.empty())
+		throw (RPN::SyntaxError());
 	int	left = stak.top();
 	stak.pop();
 
@@ -117,6 +133,8 @@ void	Div(std::stack<int> &stak, char c)
 	if (right == 0)
 		throw (RPN::SyntaxError());
 	stak.pop();
+	if (stak.empty())
+		throw (RPN::SyntaxError());
 	int	left = stak.top();
 	if (left == 0)
 		throw (RPN::SyntaxError());

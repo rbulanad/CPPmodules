@@ -36,7 +36,7 @@ void	Parse(std::string line);
 int		IsOperand(char c);
 void	Calcul(std::string line);
 void	Add(std::stack<int> &stak, char c);
-void	Sub(std::stack<int> &stak, char c);
+void	Sub(std::stack<int> &stak, char c, int &isUnary);
 void	Mul(std::stack<int> &stak, char c);
 void	Div(std::stack<int> &stak, char c);
 int		ft_stoi(std::string & s);
