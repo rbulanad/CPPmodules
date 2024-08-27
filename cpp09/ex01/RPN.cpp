@@ -56,7 +56,6 @@ void	Parse(std::string line)
 
 void	Calcul(std::string line)
 {
-	int	isUnary = 0;
 	std::stack<int> stak;
 	for(int i = 0; line[i] != '\0'; i++)
 	{
@@ -65,7 +64,7 @@ void	Calcul(std::string line)
 		else if (IsOperand(line[i]))
 		{
 			Add(stak, line[i]);
-			Sub(stak, line[i], isUnary);
+			Sub(stak, line[i]);
 			Mul(stak, line[i]);
 			Div(stak, line[i]);
 		}
@@ -91,19 +90,13 @@ void	Add(std::stack<int> &stak, char c)
 	stak.push(left + right);
 }
 
-void	Sub(std::stack<int> &stak, char c, int &isUnary)
+void	Sub(std::stack<int> &stak, char c)
 {
 	if (c != '-')
 		return ;
-	isUnary++;
 	int	right = stak.top();
 	stak.pop();
-	if (stak.empty() && isUnary == 1)
-	{
-		stak.push(right * -1);
-		return ;
-	}
-	else if (stak.empty()) 
+	if (stak.empty())
 		throw (RPN::SyntaxError());
 	int	left = stak.top();
 	stak.pop();
