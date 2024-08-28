@@ -68,6 +68,12 @@ void	Vectoring(char **argv)
 	std::vector<int> smalltor;
 	Recursive(bector, bigtor, smalltor);  //iterate to sort biggest nums of each pair into another vector
 	std::vector<int>::iterator it;
+	while (smalltor.size() != 1)
+	{
+		it = std::lower_bound(bigtor.begin(), bigtor.end() + 1, smalltor.back());
+		bigtor.insert(it, smalltor.back());
+		smalltor.pop_back();
+	}
 
 	///////DISPLAY////////
 	std::cout << "/////BIGTOR" << std::endl;
@@ -77,7 +83,43 @@ void	Vectoring(char **argv)
 	for (it = smalltor.begin(); it != smalltor.end(); ++it)
 		std::cout << *it << std::endl;
 }
+/*
+void	Dequeing(char **argv)
+{
+	std::deque<std::pair<int, int> > dek; //works like map
+	int i = 1;
+	while (argv[i])
+	{
+		if (!argv[i + 1])
+		{
+			dek.push_back(std::make_pair(atoi(argv[i]), -1)); //incase of uneven amount of nums
+			break ;
+		}
+		dek.push_back(std::make_pair(atoi(argv[i]), atoi(argv[i+1])));
+		i += 2;
+	}
+	std::deque<int> bigdek;
+	std::deque<int> smalldek;
+	Recursive(dek, bigdek, smalldek);  //iterate to sort biggest nums of each pair into another vector
+	std::deque<int>::iterator it;
+	while (smalldek.size() != 1)
+	{
+		it = std::lower_bound(bigdek.begin(), bigdek.end() + 1, smalldek.back());
+		bigdek.insert(it, smalldek.back());
+		smalldek.pop_back();
+	}
 
+	
+	///////DISPLAY////////
+	std::cout << "/////BIGTOR" << std::endl;
+	for (it = bigtor.begin(); it != bigtor.end(); ++it)
+		std::cout << *it << std::endl;
+	std::cout << "/////SMALLTOR" << std::endl;
+	for (it = smalltor.begin(); it != smalltor.end(); ++it)
+		std::cout << *it << std::endl;
+		
+}
+*/
 int	main(int argc, char **argv)
 {
 	if (argc < 3)
