@@ -10,7 +10,9 @@
 # include <cstdlib>
 # include <iostream>
 # include <vector>
+# include <deque>
 # include <utility>
+# include <ctime>
 
 class	PmergeMe
 {
